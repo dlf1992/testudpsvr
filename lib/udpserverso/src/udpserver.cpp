@@ -29,7 +29,8 @@ bool UdpServer::init(unsigned short svrport,pudpFun callback)
     int opt = 1;
     // sockfd为需要端口复用的套接字
     setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, (const void *)&opt, sizeof(opt));
-	
+	//设置广播可用
+	setsockopt(sockfd, SOL_SOCKET, SO_BROADCAST, (const void *)&opt, sizeof(opt));	
     int ret = bind(sockfd, (struct sockaddr *)&ServerAddr, sizeof(ServerAddr));
     if(ret < 0)
     {
