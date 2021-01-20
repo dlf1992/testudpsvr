@@ -1,4 +1,4 @@
-PRJNAME ?= 
+PRJNAME ?= TM8765
 
 # 根据需要，修改库文件名
 lib_name = udpsvr
