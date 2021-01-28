@@ -91,8 +91,8 @@ void UdpServer::epoll()
                 readagain:	memset(buffer, 0, sizeof(buffer));
                 struct sockaddr_in client_address;
                 socklen_t client_addrlength = sizeof( client_address );
-                int ret = recvfrom(fd,buffer,MAX_BUFFER-1, 0, (struct sockaddr*)&client_address, &client_addrlength);
-                if(ret < 0)
+                int ret1 = recvfrom(fd,buffer,MAX_BUFFER-1, 0, (struct sockaddr*)&client_address, &client_addrlength);
+                if(ret1 < 0)
                 {
                     if(errno == EAGAIN)
                     {
@@ -110,7 +110,7 @@ void UdpServer::epoll()
 						break;
 					}
                 }
-				else if(ret > 0)
+				else if(ret1 > 0)
 				{
                     //printf("received data,fd = %d,datalen = %d\n",fd,ret);
                     char *ip;
@@ -118,7 +118,7 @@ void UdpServer::epoll()
 					ip = inet_ntoa(client_address.sin_addr);
 					port = client_address.sin_port;
 					BaseTask *task = NULL;
-                    task = new Task(buffer,ret,ip,port);
+                    task = new Task(buffer,ret1,ip,port);
 					if(NULL == task)
 					{
 						//printf("task=NULL.\n");
